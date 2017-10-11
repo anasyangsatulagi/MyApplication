@@ -30,6 +30,21 @@ xcode-select --install
 
 # Available Actions
 ## Android
+### android publishBeta
+```
+fastlane android publishBeta
+```
+
+### android getvcode
+```
+fastlane android getvcode
+```
+
+### android getvname
+```
+fastlane android getvname
+```
+
 ### android test
 ```
 fastlane android test

@@ -28,9 +28,34 @@ default_platform :android
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    #ensure_git_status_clean(
-    #  show_uncommitted_changes: true
-    #)
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
+    )
+  end
+
+  lane :publishBeta do
+    # reset_git_repo
+    inc
+    beta
+    commit_android_version_bump
+    add_git_tag(
+      tag: "v"+getvname+"("+getvcode+")"
+    )
+    push_git_tags
+  end
+
+  lane :getvcode do
+    get_version_code(
+      gradle_file_path:"app/build.gradle",
+      ext_constant_name:"versionCode"
+    )
+  end
+
+  lane :getvname do
+    get_version_code(
+      gradle_file_path:"app/build.gradle",
+      ext_constant_name:"versionName"
+    )
   end
 
   desc "Runs all the tests"
