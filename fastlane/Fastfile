@@ -1,0 +1,110 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.59.0"
+
+default_platform :android
+
+# Publish to crashlytics step
+# ensure_git_status_clean
+# reset_git_repo
+# increment_version_code
+# beta (gradle && crashlytics)
+# commit_android_version_bump
+# ! add_git_tag (not sure, because the number will just to be big enough e.g 4.14.0(v201607) )
+# push_to_git_remote
+
+
+platform :android do
+  before_all do
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    #ensure_git_status_clean(
+    #  show_uncommitted_changes: true
+    #)
+  end
+
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Run Linter"
+  lane :lint do
+    gradle(task: "lint")
+  end
+
+  desc "Get commit message from default branch"
+  lane :getCommit do
+    value = "{" + changelog_from_git_commits + "}"
+    puts value
+  end
+
+  desc "Clean gradle file, to make sure that no other changes make the way"
+  lane :clean do
+    reset_git_repo(
+      skip_clean: true,
+    )
+  end
+
+  desc "Increment version code of the application"
+  lane :inc do
+    increment_version_code(
+        gradle_file_path: "app/build.gradle",
+        #ext_constant_name: "test"
+        #app_folder_name:"app"
+    )
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    
+    gradle(task: "assembleRelease")
+    crashlytics(
+      api_token: "acde119099743795b67ed3902f1b33e360178d3a",
+      build_secret: "109956c025777596e073200442e8b0dd23b7b00882d493afc56a4124715047ea"
+    )
+
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "assembleRelease")
+    supply
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used. No personal data is recorded. 
+# Learn more at https://github.com/fastlane/fastlane#metrics
