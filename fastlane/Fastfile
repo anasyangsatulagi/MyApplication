@@ -28,13 +28,16 @@ default_platform :android
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ensure_git_branch(
+      branch: 'beta'
+    )
     ensure_git_status_clean(
       show_uncommitted_changes: true
     )
   end
 
   lane :publishBeta do
-    # reset_git_repo
+    reset_git_repo
     inc
     beta
     commit_android_version_bump
