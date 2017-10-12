@@ -136,6 +136,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   fastlane
   fastlane-plugin-commit_android_version_bump
   fastlane-plugin-get_version_code
