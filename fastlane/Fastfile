@@ -46,7 +46,7 @@ platform :android do
     beta
     commit_android_version_bump
     add_git_tag(
-      tag: "v"+getvname+"."+getvcode
+      tag: "v"+getvname+"-beta."+getvcode
     )
     push_git_tags
   end
