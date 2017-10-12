@@ -46,7 +46,7 @@ platform :android do
     beta
     commit_android_version_bump
     add_git_tag(
-      tag: "v"+getvname+"("+getvcode+")"
+      tag: "v"+getvname+"."+getvcode
     )
     push_git_tags
   end
@@ -102,7 +102,7 @@ platform :android do
   desc "Submit a new Beta Build to Crashlytics Beta"
   lane :beta do
     
-    gradle(task: "assembleRelease")
+    gradle(task: "assembleBeta")
     crashlytics
 
     # sh "your_script.sh"

@@ -39,12 +39,12 @@ fastlane android publishBeta
 ```
 fastlane android getvcode
 ```
-
+Get app version code
 ### android getvname
 ```
 fastlane android getvname
 ```
-
+Get app version name
 ### android test
 ```
 fastlane android test
