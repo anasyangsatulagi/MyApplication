@@ -16,6 +16,7 @@ fastlane_version "2.59.0"
 default_platform :android
 
 # Publish to crashlytics step
+# ensure_git_branch
 # ensure_git_status_clean
 # reset_git_repo
 # increment_version_code
@@ -27,7 +28,6 @@ default_platform :android
 
 platform :android do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     ensure_git_branch(
       branch: 'beta'
     )
@@ -37,7 +37,11 @@ platform :android do
   end
 
   lane :publishBeta do
-    reset_git_repo
+    reset_git_repo(
+      exclude: [
+        ".env.default"
+      ]
+    )
     inc
     beta
     commit_android_version_bump
@@ -47,6 +51,7 @@ platform :android do
     push_git_tags
   end
 
+  desc "Get app version code"  
   lane :getvcode do
     get_version_code(
       gradle_file_path:"app/build.gradle",
@@ -54,6 +59,7 @@ platform :android do
     )
   end
 
+  desc "Get app version name"
   lane :getvname do
     get_version_code(
       gradle_file_path:"app/build.gradle",
@@ -97,10 +103,7 @@ platform :android do
   lane :beta do
     
     gradle(task: "assembleRelease")
-    crashlytics(
-      api_token: "acde119099743795b67ed3902f1b33e360178d3a",
-      build_secret: "109956c025777596e073200442e8b0dd23b7b00882d493afc56a4124715047ea"
-    )
+    crashlytics
 
     # sh "your_script.sh"
     # You can also use other beta testing services here
