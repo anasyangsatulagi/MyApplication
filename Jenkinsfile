@@ -9,7 +9,7 @@ pipeline {
     }
     stage('ls') {
       steps {
-        sh 'cd && pwd'
+        sh './gradlew lint'
       }
     }
   }
