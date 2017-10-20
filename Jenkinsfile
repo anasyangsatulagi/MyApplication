@@ -7,9 +7,9 @@ pipeline {
         echo 'Hello World'
       }
     }
-    stage('ls') {
+    stage('') {
       steps {
-        sh './gradlew lint'
+        sh 'echo sh(script: \'env|sort\', returnStdout: true)'
       }
     }
   }
