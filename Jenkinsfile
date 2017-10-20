@@ -9,7 +9,7 @@ pipeline {
     }
     stage('') {
       steps {
-        echo sh(script: \'env|sort\', returnStdout: true)
+        echo sh(script: 'env|sort', returnStdout: true)
       }
     }
   }
