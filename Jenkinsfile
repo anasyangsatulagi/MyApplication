@@ -22,7 +22,7 @@ node {
             sh "./gradlew lint"
       	}
     } catch (err) {
-        currentBuild.result = 'FAILED'
+        currentBuild.result = 'PAILED'
         throw err
     }
 }
