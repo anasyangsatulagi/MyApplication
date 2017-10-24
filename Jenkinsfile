@@ -4,6 +4,9 @@ node {
         stage ('Clone') {
         	checkout scm
         }
+        stage ('Preparing') {
+            sh "bundle install"
+        }
         stage ('Build') {
         	sh "echo 'shell scripts to build project...'"
         }
@@ -21,6 +24,9 @@ node {
       	stage ('Deploy') {
             sh "./gradlew lint"
       	}
+        stage ('Report') {
+            sh "bundle exec danger"
+        }
     } catch (err) {
         currentBuild.result = 'FAILED'
         throw err
