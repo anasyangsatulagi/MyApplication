@@ -11,4 +11,5 @@ node {
   echo "My branch is: ${env.BRANCH_NAME}"
 
   echo "Env: ${env}"
+  echo sh(script: 'env', returnStdout: true)
 }
