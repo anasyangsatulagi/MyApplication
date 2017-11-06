@@ -15,6 +15,6 @@ node {
 	        }
         }
       	stage ('Deploy') {
-            sh "./gradlew lint"
+            echo sh(returnStdout: true, script: 'env')
       	}
 }
