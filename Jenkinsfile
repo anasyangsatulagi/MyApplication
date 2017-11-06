@@ -1,12 +1,11 @@
 
 node {
-    try {
-        stage ('Build') {
-        	sh "echo 'shell scripts to build project...'"
-        }
-        stage ('Tests') {
-	        parallel 'static': {
-	            sh "echo 'shell scripts to run static tests...'"
+    stage ('Build') {
+        sh "echo 'shell scripts to build project...'"
+    }
+    stage ('Tests') {
+	 parallel 'static': {
+		 sh "echo 'shell scripts to run static tests...'"
 	        },
 	        'unit': {
 	            sh "echo 'shell scripts to run unit tests...'"
@@ -18,8 +17,4 @@ node {
       	stage ('Deploy') {
             sh "./gradlew lint"
       	}
-    } catch (err) {
-        currentBuild.result = 'FAILED'
-        throw err
-    }
 }
