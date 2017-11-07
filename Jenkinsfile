@@ -11,23 +11,29 @@ pipeline {
             name : 'FORCE_FULL_BUILD')
     }
 
-    // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
+    stages {
+        // Mark the code checkout 'stage'....
+        stage 'Stage Checkout'
 
-  // Checkout code from repository and update any submodules
-  // checkout scm
+        // Checkout code from repository and update any submodules
+        checkout scm
 
-  stage 'Stage Build'
+        stage 'Stage Build'
 
-  //branch name from Jenkins environment variables
-  echo "My branch is: ${env.BRANCH_NAME}"
+        //branch name from Jenkins environment variables
+        echo "My branch is: ${env.BRANCH_NAME}"
 
-  stage 'Stage Print 1'
+        stage 'Stage Print 1'
 
-  echo "Env: ${env}"
+        echo "Env: ${env}"
 
 
-  stage 'Stage Print 1'
+        stage 'Stage Print 2'
 
-  echo sh(script: 'env', returnStdout: true)
+        echo sh(script: 'env', returnStdout: true)
+        
+        stage 'Stage Lint'
+
+        sh "./gradlew lint"
+    }
 }
