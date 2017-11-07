@@ -13,7 +13,7 @@ pipeline {
 
     stages {
         // Mark the code checkout 'stage'....
-        stage ('Stage Checkout') {
+        stage('Stage Checkout') {
             steps {
                 checkout scm
             }
@@ -21,20 +21,20 @@ pipeline {
 
         // Checkout code from repository and update any submodules
 
-        stage ('Stage Build') {
+        stage('Stage Build') {
             steps {
                echo "My branch is: ${env.BRANCH_NAME}"
              }
         }
 
-        stage ('Stage Print 2') {
+        stage('Stage Print 2') {
             steps {
                 echo sh(script: 'env', returnStdout: true)
             }
         }
 
         
-        stage ('Stage Lint') {
+        stage('Stage Lint') {
             sh "./gradlew lint"
         }
 
