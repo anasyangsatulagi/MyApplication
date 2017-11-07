@@ -13,27 +13,30 @@ pipeline {
 
     stages {
         // Mark the code checkout 'stage'....
-        stage 'Stage Checkout'
+        stage 'Stage Checkout' {
+            steps {
+                checkout scm
+            }
+        }
 
         // Checkout code from repository and update any submodules
-        checkout scm
 
-        stage 'Stage Build'
+        stage 'Stage Build' {
+            steps {
+               echo "My branch is: ${env.BRANCH_NAME}"
+             }
+        }
 
-        //branch name from Jenkins environment variables
-        echo "My branch is: ${env.BRANCH_NAME}"
+        stage 'Stage Print 2' {
+            steps {
+                echo sh(script: 'env', returnStdout: true)
+            }
+        }
 
-        stage 'Stage Print 1'
-
-        echo "Env: ${env}"
-
-
-        stage 'Stage Print 2'
-
-        echo sh(script: 'env', returnStdout: true)
         
-        stage 'Stage Lint'
+        stage 'Stage Lint' {
+            sh "./gradlew lint"
+        }
 
-        sh "./gradlew lint"
     }
 }
