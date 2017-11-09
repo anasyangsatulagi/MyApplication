@@ -1,14 +1,30 @@
-node {
-  // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
+pipeline {
+  agent any 
 
-  // Checkout code from repository and update any submodules
-  checkout scm
-  
-  stage 'Stage Build'
+  stages {
+    
+    stage('Stage Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    
+    stage('Stage Build') {
+      steps {
+        echo "My branch is: ${env.BRANCH_NAME}"
+      }
+    }
 
-  //branch name from Jenkins environment variables
-  echo "My branch is: ${env.BRANCH_NAME}"
-
-  echo "Env: ${env}"
+    stage('Stage Print 2') {
+      steps {
+        echo sh(script: 'env', returnStdout: true)
+      }
+    }
+    
+    stage('Stage Lint') {
+      steps {
+        sh "./gradlew lint"
+      }
+    }
   }
+}
