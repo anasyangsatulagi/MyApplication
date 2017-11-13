@@ -31,7 +31,7 @@ node {
             keepAll: true,
             reportDir: 'app/build/reports',
             reportFiles: 'lint-results-release.html',
-            reportName: "Lint Report",
+            reportName: "Lint Report app",
             includes: '**/*.*'
         ])
         publishHTML (target: [
@@ -40,7 +40,7 @@ node {
             keepAll: true,
             reportDir: 'app/build/reportsa',
             reportFiles: 'lint-results-release-asdasd.html',
-            reportName: "Lint Report",
+            reportName: "Lint Report app1",
             includes: '**/*.*'
         ])
         throw err
