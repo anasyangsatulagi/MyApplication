@@ -25,7 +25,7 @@ node {
         }
     } catch (err) {
         currentBuild.result = 'FAILED'
-        sh "bundle exec danger"
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'app/build/reports/', reportFiles: 'lint-results-release.html', reportName: 'HTML Report', reportTitles: ''])
         throw err
     }
 }
