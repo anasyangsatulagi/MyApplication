@@ -25,6 +25,7 @@ node {
         }
     } catch (err) {
         currentBuild.result = 'FAILED'
+        sh "bundle exec danger"
         throw err
     }
 }
