@@ -25,7 +25,14 @@ node {
         }
     } catch (err) {
         currentBuild.result = 'FAILED'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'app/build/reports/', reportFiles: 'lint-results-release.html', reportName: 'HTML Report', reportTitles: ''])
+        publishHTML (target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: 'app/build/reports',
+            reportFiles: 'lint-results-release.html',
+            reportName: "Lint Report"
+        ])
         throw err
     }
 }
