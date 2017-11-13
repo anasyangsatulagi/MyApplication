@@ -27,7 +27,7 @@ node {
         currentBuild.result = 'FAILED'
         publishHTML (target: [
             allowMissing: false,
-            alwaysLinkToLastBuild: false,
+            alwaysLinkToLastBuild: true,
             keepAll: true,
             reportDir: 'app/build/reports',
             reportFiles: 'lint-results-release.html',
