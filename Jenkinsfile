@@ -26,7 +26,7 @@ node {
     } catch (err) {
         currentBuild.result = 'FAILED'
         publishHTML (target: [
-            allowMissing: false,
+            allowMissing: true,
             alwaysLinkToLastBuild: true,
             keepAll: true,
             reportDir: 'app/build/reports',
