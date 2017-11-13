@@ -31,7 +31,8 @@ node {
             keepAll: true,
             reportDir: 'app/build/reports',
             reportFiles: 'lint-results-release.html',
-            reportName: "Lint Report"
+            reportName: "Lint Report",
+            includes: '**/*.*'
         ])
         throw err
     }
