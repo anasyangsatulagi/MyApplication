@@ -3,9 +3,6 @@ node {
         stage ('Clone') {
         	checkout scm
         }
-        stage ('Preparing') {
-            sh "bundle install"
-        }
         stage ('Build') {
         	sh "echo 'shell scripts to build project...'"
         }
