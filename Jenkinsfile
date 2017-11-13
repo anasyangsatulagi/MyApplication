@@ -22,7 +22,7 @@ node {
 	        }
         }
       	stage ('Deploy') {
-            sh "./gradlew lint"
+            sh "./gradlew lintRelease"
       	}
         stage ('Report') {
             sh "bundle exec danger"
