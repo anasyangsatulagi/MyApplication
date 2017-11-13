@@ -34,6 +34,15 @@ node {
             reportName: "Lint Report",
             includes: '**/*.*'
         ])
+        publishHTML (target: [
+            allowMissing: true,
+            alwaysLinkToLastBuild: true,
+            keepAll: true,
+            reportDir: 'app/build/reportsa',
+            reportFiles: 'lint-results-release-asdasd.html',
+            reportName: "Lint Report",
+            includes: '**/*.*'
+        ])
         throw err
     }
 }
