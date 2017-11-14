@@ -1,14 +1,27 @@
 node {
-  // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
-
-  // Checkout code from repository and update any submodules
-  checkout scm
-  
-  stage 'Stage Build'
-
-  //branch name from Jenkins environment variables
-  echo "My branch is: ${env.BRANCH_NAME}"
-
-  echo "Env: ${env}"
-  }
+    try {
+        stage ('Clone') {
+        	checkout scm
+        }
+        stage ('Build') {
+        	sh "echo 'shell scripts to build project...'"
+        }
+        stage ('Tests') {
+	        parallel 'static': {
+	            sh "echo 'shell scripts to run static tests...'"
+	        },
+	        'unit': {
+	            sh "echo 'shell scripts to run unit tests...'"
+	        },
+	        'integration': {
+	            sh "echo 'shell scripts to run integration tests...'"
+	        }
+        }
+      	stage ('Deploy') {
+            sh "./gradlew lint"
+      	}
+    } catch (err) {
+        currentBuild.result = 'PAILED'
+        throw err
+    }
+}
